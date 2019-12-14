@@ -1,11 +1,11 @@
+Experimenting with Leon Sans and using GitHub pages
+
 # Leon Sans
 Leon Sans is a geometric sans-serif typeface made with code in 2019 by Jongmin Kim. It allows to change font weight dynamically and to create custom animations, effects or shapes in the Canvas element of HTML5. He designed the font to celebrate his newborn baby Leon.
 
 There are live examples at https://leon-kim.com/examples/
 
 And website at https://leon-kim.com/
-
-Experimenting with Leon Sans and using github pages
 
 ![uppercase](https://raw.githubusercontent.com/cmiscm/leonsans/gh-pages/screenshot/upper.gif)
 
@@ -170,4 +170,3 @@ for (i = 0; i < total; i++) {
 | `box(ctx)`                | Draw outline box for the text. |
 | `reset()`                  | Reset all the values.  |
 | `destroy()`                  | Destroy.  |
-
