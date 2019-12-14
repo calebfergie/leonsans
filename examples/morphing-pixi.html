@@ -112,16 +112,16 @@
             };
 
             leon = new LeonSans({
-                text: '',
+                text: 'BlockApps',
                 size: 600,
                 weight: 700,
                 pathGap: -1,
                 isPath: true
             });
-            leon.on('update', (data) => {  
+            leon.on('update', (data) => {
                 update(data);
             });
-            
+
             const gui = new dat.GUI();
             gui.add(leon, 'size', 400, 1000);
             gui.add(controll, 'weight', 3, 9);
@@ -168,7 +168,7 @@
             const total = model.paths.length;
             const sw2 = sw / 2;
             const sh2 = sh / 2;
-            let i, p, pos, scale; 
+            let i, p, pos, scale;
             for (i = 0; i < particleTotal; i++) {
                 p = particles[i];
                 TweenMax.killTweensOf(p);
@@ -180,34 +180,34 @@
                         scale = controll.weight * 0.01* leon.scale;
                     }
                     TweenMax.to(p, 0.4, {
-                        x: sw2, 
+                        x: sw2,
                         y: sh2,
                         ease: Sine.easeIn
                     });
                     TweenMax.to(p, 0.5, {
                         delay: 0.3,
-                        x: pos.x, 
+                        x: pos.x,
                         y: pos.y,
                         ease: Expo.easeOut
                     });
                     TweenMax.to(p.scale, 0.5, {
                         delay: 0.3,
-                        x: scale, 
+                        x: scale,
                         y: scale,
                         ease: Expo.easeOut
                     });
                 } else {
                     TweenMax.to(p, 0.3, {
-                        x: sw2, 
+                        x: sw2,
                         y: sh2,
                         ease: Sine.easeIn
                     });
                     TweenMax.to(p.scale, 0.3, {
-                        x: 0, 
+                        x: 0,
                         y: 0,
                         ease: Sine.easeIn
                     });
-                   
+
                 }
             }
         }

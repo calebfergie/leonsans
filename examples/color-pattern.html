@@ -37,7 +37,7 @@
 
         function init() {
             generateCanvas();
-            
+
             controll = {
                 size: 200,
                 pathGap: 0,
@@ -59,7 +59,7 @@
             };
 
             leon = new LeonSans({
-                text: 'abcdefg',
+                text: 'BlockApps',
                 size: getSize(200),
                 weight: 500,
                 pathGap: -1,
@@ -95,7 +95,7 @@
             ctx.lineWidth = 0.2;
             const w = controll.patternWidth * leon.scale;
             const total = leon.data.length;
-            let i, p, pos, no = 0; 
+            let i, p, pos, no = 0;
             let d, j, j_total;
 
             for (i = 0; i < total; i++) {

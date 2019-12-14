@@ -68,14 +68,14 @@
             };
 
             leon = new LeonSans({
-                text: '012\n345',
+                text: 'BlockApps',
                 size: getSize(400),
                 weight: 900,
                 tracking: 1,
                 leading: -1,
                 align: 'center'
             });
-            leon.on('update', (model) => {  
+            leon.on('update', (model) => {
                 update();
             });
 
@@ -89,10 +89,10 @@
 
 
         function update() {
-            while(container.children[0]) { 
+            while(container.children[0]) {
                 container.removeChild(container.children[0]);
             }
-            
+
             const total = leon.data.length;
             let i, d, color, line, pos;
             let j, j_total, lineW = leon.lineWidth;
@@ -115,7 +115,7 @@
                 tilingSprite.x = d.rect.x - d.rect.w /2;
                 tilingSprite.y = d.rect.y - d.rect.h / 2;
                 tilingSprite.tileScale.x = tilingSprite.tileScale.y = leon.scale * 0.5;
-                
+
                 container.addChild(tilingSprite);
 
                 tilingSprite.mask = graphics;
@@ -147,7 +147,7 @@
                         graphics.closePath();
                     }
                 }
-                
+
             }
         }
 
