@@ -11,9 +11,9 @@ export function Pattern(ctx, data, w, h) {
     for (i = 0; i < total; i++) {
         p = data.paths[i];
         if (p.num == 1) {
-            ctx.fillStyle = "#ff00c5";
+            ctx.fillStyle = "#223765";
         } else {
-            ctx.fillStyle = "#ff95f8";
+            ctx.fillStyle = "#337AB7";
         }
         if (p.type == 'a') {
             ctx.beginPath();

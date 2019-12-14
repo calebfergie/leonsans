@@ -15,7 +15,7 @@
             outline: 0;
             margin: 0;
             padding: 0;
-            background-color: #223765;
+            background-color: #FFFFFF;
             cursor: move;
         }
     </style>
@@ -37,8 +37,9 @@
             controll = {
                 color: {},
                 align: {},
-                patternWidth: 40,
-                patternHeight: 10,
+                patternWidth: 37,
+                patternHeight: 30,
+                pathGap: 0.45
                 drawing: () => {
                     let i, total = leon.drawing.length;
                     for (i = 0; i < total; i++) {
@@ -58,10 +59,7 @@
                 text: 'BlockApps',
                 size: getSize(120),
                 weight: 400,
-                isPath: true,
-                pathGap: 0.45,
-                patternHeight: 30,
-                patternWidth: 37
+                isPath: true
             });
 
             const gui = new dat.GUI();
