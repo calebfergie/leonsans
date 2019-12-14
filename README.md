@@ -5,6 +5,8 @@ There are live examples at https://leon-kim.com/examples/
 
 And website at https://leon-kim.com/
 
+Experimenting with Leon Sans and using github pages
+
 ![uppercase](https://raw.githubusercontent.com/cmiscm/leonsans/gh-pages/screenshot/upper.gif)
 
 ![lowercase](https://raw.githubusercontent.com/cmiscm/leonsans/gh-pages/screenshot/lower.gif)
