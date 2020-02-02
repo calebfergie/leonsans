@@ -29,9 +29,10 @@
     <script src="../dist/leon.js"></script>
     <script src="js/util.js"></script>
     <script>
-        const speed = 10;
+        const speed = 0.1;
         const fps = 1000 / 30;
         const PI2 = 2 * Math.PI;
+        const PI = Math.PI;
         let cValue = 0, mode;
         let leon, controll, time;
 
@@ -72,6 +73,7 @@
             const weightControll = gui.add(controll, 'patternWidth', 1, 100);
             gui.add(controll, 'drawing');
             const visControll = gui.add(controll, 'pathGap', [ '-1', '0'] );
+            weightControll.setValue(100);
 
             visControll.onChange((value) => {
                 mode = value;
@@ -92,7 +94,7 @@
 
         function update() {
             ctx.clearRect(0, 0, sw, sh);
-            ctx.lineWidth = 0.2;
+            ctx.lineWidth = 0.4;
             const w = controll.patternWidth * leon.scale;
             const total = leon.data.length;
             let i, p, pos, no = 0;
@@ -108,15 +110,23 @@
                     ctx.beginPath();
                     ctx.arc(pos.x, pos.y, w, 0, PI2);
                     ctx.stroke();
-                    no += 1;
+                    no += 0.1;
                 }
             }
 
-            cValue -= speed;
+            cValue += speed;
         }
 
         function randomColor(no) {
-            return "hsl(" + (no + cValue) + ',' + '70%,' + '50%)';
+            var pallateWidth = 10;
+            var centralColor = 230;
+            var currentColor = Math.abs(centralColor-((no+cValue)%pallateWidth*2))
+
+            //when going up
+            // '200' is 200, 220 is 220, 210 is 210, 205 is 205
+            // when going down '200 is 220' 220 is 200, 210 is still 210
+
+            return "hsl(" + (currentColor) + ',' + '50%,' + '50%)';
         }
 
         function animate(t) {
