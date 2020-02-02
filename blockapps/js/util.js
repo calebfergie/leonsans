@@ -3,12 +3,10 @@ let isDown = false, moveX = 0, moveY = 0, offsetX = 0, offsetY = 0;
 let canvas, ctx;
 let renderer, stage;
 var sitespace = document.getElementById("main");
-let sw = document.body.clientWidth;
-let sh = document.body.clientHeight;
+let sw = sitespace.clientWidth;
+let sh = sitespace.clientHeight;
 
 function generateCanvas() {
-  var sitespace = document.getElementById("main");
-
     canvas = document.createElement('canvas');
     sitespace.appendChild(canvas);
     ctx = canvas.getContext("2d");

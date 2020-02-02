@@ -15,7 +15,7 @@
             outline: 0;
             margin: 0;
             padding: 0;
-            background-color: #121212;
+            background-color: #ffffff;
             cursor: move;
         }
     </style>
@@ -35,6 +35,8 @@
         const PI = Math.PI;
         let cValue = 0, mode;
         let leon, controll, time;
+        var pallateWidth = 20;
+        var centralColor = 210;
 
         function init() {
             generateCanvas();
@@ -60,8 +62,8 @@
             };
 
             leon = new LeonSans({
-                text: 'BlockApps',
-                size: getSize(200),
+                text: 'STRATO',
+                size: 100,
                 weight: 500,
                 pathGap: -1,
                 isPath: true
@@ -73,7 +75,7 @@
             const weightControll = gui.add(controll, 'patternWidth', 1, 100);
             gui.add(controll, 'drawing');
             const visControll = gui.add(controll, 'pathGap', [ '-1', '0'] );
-            weightControll.setValue(100);
+            weightControll.setValue(75);
 
             visControll.onChange((value) => {
                 mode = value;
@@ -118,15 +120,13 @@
         }
 
         function randomColor(no) {
-            var pallateWidth = 10;
-            var centralColor = 230;
-            var currentColor = Math.abs(centralColor-((no+cValue)%pallateWidth*2))
+            var currentColor = Math.abs(centralColor-((no+cValue)%pallateWidth))
 
             //when going up
             // '200' is 200, 220 is 220, 210 is 210, 205 is 205
             // when going down '200 is 220' 220 is 200, 210 is still 210
 
-            return "hsl(" + (currentColor) + ',' + '50%,' + '50%)';
+            return "hsl(" + (currentColor) + ',' + '90%,' + '50%)';
         }
 
         function animate(t) {

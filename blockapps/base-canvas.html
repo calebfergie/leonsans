@@ -4,9 +4,11 @@
   <script src="js/leon.js"></script>
   <script src="js/util.js"></script>
   <script type="text/javascript">
-  const speed = 2;
+  const speed = 0.4;
   const fps = 1000 / 30;
   const PI2 = 2 * Math.PI;
+  let pallateWidth = 20;
+  let centralColor = 210;
   let cValue = 0, mode;
   let leon, controll, time;
 
@@ -14,7 +16,7 @@
       generateCanvas();
 
       controll = {
-          size: 200,
+          size: 100,
           pathGap: -1,
           patternWidth: 2,
           visual: {},
@@ -35,20 +37,21 @@
 
       leon = new LeonSans({
           text: 'STRATO',
-          size: getSize(200),
+          size: 200,
           weight: 10,
           pathGap: -1,
           isPath: true
       });
 
       const gui = new dat.GUI({autoPlace: false});
-      var DOMCanvas = document.getElementById("main");
-      DOMCanvas.appendChild(gui.domElement);
+      var guispace = document.getElementById("gui-space");
+      guispace.appendChild(gui.domElement);
 
       // gui.add(leon, 'text'); //dont let em change the words
-      gui.add(leon, 'size', 10, 1000);
+      gui.add(leon, 'size', 10, 300);
       const weightControll = gui.add(controll, 'patternWidth', 1, 100);
       gui.add(controll, 'drawing');
+      weightControll.setValue(20);
       // const visControll = gui.add(controll, 'pathGap', [ '-1', '0'] );
 
       // visControll.onChange((value) => {
@@ -65,13 +68,12 @@
       // });
       // visControll.setValue('-1');
 
-      weightControll.setValue(20);
       requestAnimationFrame(animate);
   }
 
   function update() {
       ctx.clearRect(0, 0, sw, sh);
-      ctx.lineWidth = 0.2;
+      ctx.lineWidth = 0.4;
       const w = controll.patternWidth * leon.scale;
       const total = leon.data.length;
       let i, p, pos, no = 0;
@@ -87,7 +89,7 @@
               ctx.beginPath();
               ctx.arc(pos.x, pos.y, w, 0, PI2);
               ctx.stroke();
-              no += 1;
+              no += 0.1;
           }
       }
 
@@ -96,14 +98,14 @@
   }
 
   function randomColor(no) {
-      return "hsl(" + (no + cValue) + ',' + '70%,' + '50%)';
+      return "hsl(" + (no + cValue) + ',' + '90%,' + '50%)';
       // console.log((no + cValue));
   }
 
   function blockAppsColor(no) {
-    // light blue:180 dark blue:255 -> 75 // 190 247
+    // light blue:180 dark blue:255 -> 75 // 190 240
     // console.log((no + cValue));
-    return "hsl(" + ((no + cValue)%20+225) + ',' + '70%,' + '50%)';
+    return "hsl(" + (Math.abs(centralColor-((no+cValue)%pallateWidth))) + ',' + '70%,' + '50%)';
   }
 
   function animate(t) {
