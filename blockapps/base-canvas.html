@@ -4,13 +4,12 @@
   <script src="js/leon.js"></script>
   <script src="js/util.js"></script>
   <script type="text/javascript">
-  const speed = 0.4;
   const fps = 1000 / 30;
   const PI2 = 2 * Math.PI;
   let pallateWidth = 20;
   let centralColor = 210;
   let cValue = 0, mode;
-  let leon, controll, time;
+  let leon, controll, time, caleb, currentColor;
 
   function init() {
       generateCanvas();
@@ -20,7 +19,7 @@
           pathGap: -1,
           patternWidth: 2,
           visual: {},
-          drawing: () => {
+          draw: () => {
               let i, total = leon.drawing.length;
               for (i = 0; i < total; i++) {
                   TweenMax.killTweensOf(leon.drawing[i]);
@@ -33,6 +32,13 @@
                   });
               }
           }
+      };
+
+      caleb = {
+        pallateWidth: 20,
+        centralColor: 210,
+        speed: 0.1,
+        volume: 0.1
       };
 
       leon = new LeonSans({
@@ -50,8 +56,16 @@
       // gui.add(leon, 'text'); //dont let em change the words
       gui.add(leon, 'size', 10, 300);
       const weightControll = gui.add(controll, 'patternWidth', 1, 100);
-      gui.add(controll, 'drawing');
+      gui.add(controll, 'draw');
       weightControll.setValue(20);
+      const colorControll = gui.add(caleb, 'centralColor', 0, 359);
+      colorControll.setValue(210);
+      const palateControll = gui.add(caleb, 'pallateWidth', 0, 359);
+      palateControll.setValue(20);
+      const speedControll = gui.add(caleb, 'speed', 0.1, 2);
+      speedControll.setValue(0.1);
+      const volumeControll = gui.add(caleb, 'volume', 0.1, 2);
+      volumeControll.setValue(0);
       // const visControll = gui.add(controll, 'pathGap', [ '-1', '0'] );
 
       // visControll.onChange((value) => {
@@ -89,12 +103,11 @@
               ctx.beginPath();
               ctx.arc(pos.x, pos.y, w, 0, PI2);
               ctx.stroke();
-              no += 0.1;
+              no += caleb.volume;
           }
       }
 
-      cValue -= speed;
-      // cValue += speed;
+      cValue += caleb.speed;
   }
 
   function randomColor(no) {
@@ -105,7 +118,7 @@
   function blockAppsColor(no) {
     // light blue:180 dark blue:255 -> 75 // 190 240
     // console.log((no + cValue));
-    return "hsl(" + (Math.abs(centralColor-((no+cValue)%pallateWidth))) + ',' + '70%,' + '50%)';
+    return "hsl(" + Math.abs(caleb.centralColor -((no+cValue)%caleb.pallateWidth)) + ',' + '70%,' + '50%)';
   }
 
   function animate(t) {

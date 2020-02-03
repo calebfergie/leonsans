@@ -29,14 +29,13 @@
     <script src="../dist/leon.js"></script>
     <script src="js/util.js"></script>
     <script>
-        const speed = 0.1;
         const fps = 1000 / 30;
         const PI2 = 2 * Math.PI;
         const PI = Math.PI;
         let cValue = 0, mode;
-        let leon, controll, time;
-        var pallateWidth = 20;
-        var centralColor = 210;
+        let leon, controll, time, caleb, currentColor;
+
+
 
         function init() {
             generateCanvas();
@@ -46,7 +45,7 @@
                 pathGap: 0,
                 patternWidth: 2,
                 visual: {},
-                drawing: () => {
+                draw: () => {
                     let i, total = leon.drawing.length;
                     for (i = 0; i < total; i++) {
                         TweenMax.killTweensOf(leon.drawing[i]);
@@ -61,6 +60,14 @@
                 }
             };
 
+            caleb = {
+              pallateWidth: 20,
+              centralColor: 210,
+              speed: 0.1,
+              volume: 0.1
+            };
+
+
             leon = new LeonSans({
                 text: 'STRATO',
                 size: 100,
@@ -69,13 +76,22 @@
                 isPath: true
             });
 
+
             const gui = new dat.GUI();
             gui.add(leon, 'text');
             gui.add(leon, 'size', 10, 1000);
             const weightControll = gui.add(controll, 'patternWidth', 1, 100);
-            gui.add(controll, 'drawing');
-            const visControll = gui.add(controll, 'pathGap', [ '-1', '0'] );
             weightControll.setValue(75);
+            gui.add(controll, 'draw');
+            const visControll = gui.add(controll, 'pathGap', [ '-1', '0'] );
+            const colorControll = gui.add(caleb, 'centralColor', 0, 359);
+            colorControll.setValue(210);
+            const palateControll = gui.add(caleb, 'pallateWidth', 0, 359);
+            palateControll.setValue(20);
+            const speedControll = gui.add(caleb, 'speed', 0.1, 2);
+            speedControll.setValue(0.1);
+            const volumeControll = gui.add(caleb, 'volume', 0.1, 2);
+            volumeControll.setValue(0);
 
             visControll.onChange((value) => {
                 mode = value;
@@ -107,24 +123,21 @@
                 j_total = Math.round(d.length * leon.drawing[i].value);
                 for (j = 0; j < j_total; j++) {
                     pos = d[j];
-                    ctx.fillStyle = randomColor(no);
-                    ctx.strokeStyle = randomColor(no);
+                    ctx.fillStyle = randomColor(no, caleb.centralColor, caleb.pallateWidth);
+                    ctx.strokeStyle = randomColor(no, caleb.centralColor, caleb.pallateWidth);
                     ctx.beginPath();
                     ctx.arc(pos.x, pos.y, w, 0, PI2);
                     ctx.stroke();
-                    no += 0.1;
+                    no += caleb.volume;
                 }
             }
 
-            cValue += speed;
+            cValue += caleb.speed;
         }
 
-        function randomColor(no) {
-            var currentColor = Math.abs(centralColor-((no+cValue)%pallateWidth))
+        function randomColor(no, centralColor, pallateWidth) {
 
-            //when going up
-            // '200' is 200, 220 is 220, 210 is 210, 205 is 205
-            // when going down '200 is 220' 220 is 200, 210 is still 210
+            currentColor = Math.abs(centralColor -((no+cValue)%pallateWidth))
 
             return "hsl(" + (currentColor) + ',' + '90%,' + '50%)';
         }
