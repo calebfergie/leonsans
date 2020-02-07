@@ -64,7 +64,7 @@
               pallateWidth: 20,
               centralColor: 210,
               speed: 0.1,
-              volume: 0.1
+              volume: 0.01
             };
 
 
@@ -76,36 +76,38 @@
                 isPath: true
             });
 
-
             const gui = new dat.GUI();
-            gui.add(leon, 'text');
-            gui.add(leon, 'size', 10, 1000);
-            const weightControll = gui.add(controll, 'patternWidth', 1, 100);
-            weightControll.setValue(75);
+            // const gui = new dat.GUI({autoPlace: false});
+            // var guispace = document.getElementById("gui-space");
+            // guispace.appendChild(gui.domElement);
             gui.add(controll, 'draw');
-            const visControll = gui.add(controll, 'pathGap', [ '-1', '0'] );
+            // gui.add(leon, 'text'); //dont let em change the words
+            gui.add(leon, 'size', 10, 300);
+            const weightControll = gui.add(controll, 'patternWidth', 1, 100);
+            weightControll.setValue(20);
             const colorControll = gui.add(caleb, 'centralColor', 0, 359);
             colorControll.setValue(210);
-            const palateControll = gui.add(caleb, 'pallateWidth', 0, 359);
+            const palateControll = gui.add(caleb, 'pallateWidth', 0, 180);
             palateControll.setValue(20);
-            const speedControll = gui.add(caleb, 'speed', 0.1, 2);
+            const speedControll = gui.add(caleb, 'speed', 0, 1);
             speedControll.setValue(0.1);
-            const volumeControll = gui.add(caleb, 'volume', 0.1, 2);
-            volumeControll.setValue(0);
+            const volumeControll = gui.add(caleb, 'volume', 0, 0.2);
+            volumeControll.setValue(0.01);
+            // const visControll = gui.add(controll, 'pathGap', [ '-1', '0'] );
 
-            visControll.onChange((value) => {
-                mode = value;
-                if (mode == '-1') {
-                    weightControll.setValue(40);
-                    leon.pathGap = -1;
-                    leon.tracking = 1;
-                } else if (mode == '0') {
-                    weightControll.setValue(40);
-                    leon.pathGap = 0;
-                    leon.tracking = 1;
-                }
-            });
-            visControll.setValue('-1');
+            // visControll.onChange((value) => {
+            //     mode = value;
+            //     if (mode == '-1') {
+            //         weightControll.setValue(40);
+            //         // leon.pathGap = -1;
+            //         leon.tracking = 1;
+            //     } else if (mode == '0') {
+            //         weightControll.setValue(40);
+            //         // leon.pathGap = 0;
+            //         leon.tracking = 1;
+            //     }
+            // });
+            // visControll.setValue('-1');
 
             requestAnimationFrame(animate);
         }
@@ -123,8 +125,8 @@
                 j_total = Math.round(d.length * leon.drawing[i].value);
                 for (j = 0; j < j_total; j++) {
                     pos = d[j];
-                    ctx.fillStyle = randomColor(no, caleb.centralColor, caleb.pallateWidth);
-                    ctx.strokeStyle = randomColor(no, caleb.centralColor, caleb.pallateWidth);
+                    ctx.fillStyle = SinColor(no, caleb.centralColor, caleb.pallateWidth);
+                    ctx.strokeStyle = SinColor(no, caleb.centralColor, caleb.pallateWidth);
                     ctx.beginPath();
                     ctx.arc(pos.x, pos.y, w, 0, PI2);
                     ctx.stroke();
@@ -140,6 +142,10 @@
             currentColor = Math.abs(centralColor -((no+cValue)%pallateWidth))
 
             return "hsl(" + (currentColor) + ',' + '90%,' + '50%)';
+        }
+
+        function SinColor(no) {
+          return "hsl(" + ((Math.sin(no+cValue)*caleb.pallateWidth)+caleb.centralColor) + ',' + '70%,' + '50%)';
         }
 
         function animate(t) {

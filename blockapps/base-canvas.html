@@ -38,7 +38,7 @@
         pallateWidth: 20,
         centralColor: 210,
         speed: 0.1,
-        volume: 0.1
+        volume: 0.01
       };
 
       leon = new LeonSans({
@@ -52,20 +52,19 @@
       const gui = new dat.GUI({autoPlace: false});
       var guispace = document.getElementById("gui-space");
       guispace.appendChild(gui.domElement);
-
+      gui.add(controll, 'draw');
       // gui.add(leon, 'text'); //dont let em change the words
       gui.add(leon, 'size', 10, 300);
       const weightControll = gui.add(controll, 'patternWidth', 1, 100);
-      gui.add(controll, 'draw');
       weightControll.setValue(20);
       const colorControll = gui.add(caleb, 'centralColor', 0, 359);
       colorControll.setValue(210);
-      const palateControll = gui.add(caleb, 'pallateWidth', 0, 359);
+      const palateControll = gui.add(caleb, 'pallateWidth', 0, 180);
       palateControll.setValue(20);
-      const speedControll = gui.add(caleb, 'speed', 0.1, 2);
+      const speedControll = gui.add(caleb, 'speed', 0, 1);
       speedControll.setValue(0.1);
-      const volumeControll = gui.add(caleb, 'volume', 0.1, 2);
-      volumeControll.setValue(0);
+      const volumeControll = gui.add(caleb, 'volume', 0, 0.2);
+      volumeControll.setValue(0.01);
       // const visControll = gui.add(controll, 'pathGap', [ '-1', '0'] );
 
       // visControll.onChange((value) => {
@@ -98,8 +97,8 @@
           j_total = Math.round(d.length * leon.drawing[i].value);
           for (j = 0; j < j_total; j++) {
               pos = d[j];
-              ctx.fillStyle = blockAppsColor(no);
-              ctx.strokeStyle = blockAppsColor(no);
+              ctx.fillStyle = SinColor(no);
+              ctx.strokeStyle = SinColor(no);
               ctx.beginPath();
               ctx.arc(pos.x, pos.y, w, 0, PI2);
               ctx.stroke();
@@ -119,6 +118,10 @@
     // light blue:180 dark blue:255 -> 75 // 190 240
     // console.log((no + cValue));
     return "hsl(" + Math.abs(caleb.centralColor -((no+cValue)%caleb.pallateWidth)) + ',' + '70%,' + '50%)';
+  }
+
+  function SinColor(no) {
+    return "hsl(" + ((Math.sin(no+cValue)*caleb.pallateWidth)+caleb.centralColor) + ',' + '70%,' + '50%)';
   }
 
   function animate(t) {
